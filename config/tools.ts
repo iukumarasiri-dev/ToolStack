@@ -1,0 +1,309 @@
+import {
+  Combine,
+  Eraser,
+  FileImage,
+  FileOutput,
+  FileSpreadsheet,
+  FileText,
+  FileType,
+  Hash,
+  Image as ImageIcon,
+  LayoutGrid,
+  Minimize2,
+  Presentation,
+  RefreshCw,
+  Replace,
+  Scaling,
+  Scissors,
+} from "lucide-react";
+import type { Tool, ToolCategory, ToolCategoryId } from "@/types";
+
+/**
+ * Tool registry — the single source of truth for every tool.
+ * Nav, landing page, category pages, sitemap, metadata and related-tool links
+ * are all generated from this file.
+ *
+ * To ship a tool: flip its status to "live", fill in howTo/faq/related,
+ * and add app/<category>/<slug>/page.tsx.
+ */
+
+export const categories: ToolCategory[] = [
+  {
+    id: "pdf",
+    name: "PDF Tools",
+    shortName: "PDF",
+    description: "Merge, split, compress, reorder and convert PDF files.",
+    icon: FileText,
+    accent: "bg-red-50 text-red-600 dark:bg-red-950/50 dark:text-red-400",
+  },
+  {
+    id: "docx",
+    name: "Word Tools",
+    shortName: "Word",
+    description: "Convert, count and edit Word (.docx) documents.",
+    icon: FileType,
+    accent: "bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400",
+  },
+  {
+    id: "image",
+    name: "Image Tools",
+    shortName: "Image",
+    description: "Convert, compress, resize and turn images into PDFs.",
+    icon: ImageIcon,
+    accent: "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400",
+  },
+];
+
+export const tools: Tool[] = [
+  // ── PDF ────────────────────────────────────────────────────────────────
+  {
+    id: "pdf-merge",
+    category: "pdf",
+    slug: "merge",
+    name: "Merge PDF",
+    tagline: "Combine multiple PDFs into one file, in any order.",
+    title: "Merge PDF Files Online Free — No Upload",
+    description:
+      "Combine multiple PDF files into one document for free. Drag to reorder, then merge instantly in your browser — your files are never uploaded.",
+    icon: Combine,
+    status: "coming-soon",
+    related: ["pdf-split", "pdf-organize", "image-to-pdf"],
+  },
+  {
+    id: "pdf-split",
+    category: "pdf",
+    slug: "split",
+    name: "Split PDF",
+    tagline: "Extract pages or split a PDF into several files.",
+    title: "Split PDF Online Free — Extract Pages Without Uploading",
+    description:
+      "Split a PDF into separate files or extract specific pages for free. Works entirely in your browser, so your documents stay private.",
+    icon: Scissors,
+    status: "coming-soon",
+    related: ["pdf-merge", "pdf-organize"],
+  },
+  {
+    id: "pdf-compress",
+    category: "pdf",
+    slug: "compress",
+    name: "Compress PDF",
+    tagline: "Reduce PDF file size for email and uploads.",
+    title: "Compress PDF Online Free — Reduce PDF File Size",
+    description:
+      "Shrink PDF file size for free, right in your browser. No sign-up and no uploads — ideal for email attachments and upload limits.",
+    icon: Minimize2,
+    status: "coming-soon",
+    related: ["pdf-merge", "image-compress"],
+  },
+  {
+    id: "pdf-organize",
+    category: "pdf",
+    slug: "organize",
+    name: "Organize PDF",
+    tagline: "Rotate, reorder and delete pages visually.",
+    title: "Organize PDF Pages — Rotate, Reorder & Delete Online",
+    description:
+      "Rotate, reorder and delete PDF pages with a visual editor. Free, fast and private — everything happens in your browser.",
+    icon: LayoutGrid,
+    status: "coming-soon",
+    related: ["pdf-merge", "pdf-split"],
+  },
+  {
+    id: "pdf-word-counter",
+    category: "pdf",
+    slug: "word-counter",
+    name: "PDF Word Counter",
+    tagline: "Count words and characters in a PDF.",
+    title: "PDF Word Counter — Count Words in a PDF Online",
+    description:
+      "Count words, characters and pages in any PDF for free. Runs in your browser, so your document is never uploaded.",
+    icon: Hash,
+    status: "coming-soon",
+    related: ["docx-word-counter", "pdf-to-word"],
+  },
+  {
+    id: "pdf-to-word",
+    category: "pdf",
+    slug: "to-word",
+    name: "PDF to Word",
+    tagline: "Extract text from a PDF into an editable .docx.",
+    title: "PDF to Word — Extract PDF Text to DOCX Free",
+    description:
+      "Extract the text from a PDF into an editable Word document for free, without uploading your file anywhere.",
+    icon: FileOutput,
+    status: "coming-soon",
+    related: ["docx-to-pdf", "pdf-to-excel"],
+  },
+  {
+    id: "pdf-to-excel",
+    category: "pdf",
+    slug: "to-excel",
+    name: "PDF to Excel",
+    tagline: "Pull text and tables from a PDF into a spreadsheet.",
+    title: "PDF to Excel — Extract PDF Data to a Spreadsheet",
+    description:
+      "Extract text and simple tables from a PDF into an Excel spreadsheet, for free and entirely in your browser.",
+    icon: FileSpreadsheet,
+    status: "coming-soon",
+    related: ["pdf-to-word", "pdf-to-ppt"],
+  },
+  {
+    id: "pdf-to-ppt",
+    category: "pdf",
+    slug: "to-ppt",
+    name: "PDF to PowerPoint",
+    tagline: "Turn PDF pages into presentation slides.",
+    title: "PDF to PowerPoint — Convert PDF Pages to Slides",
+    description:
+      "Turn PDF pages into PowerPoint slides for free. No uploads, no sign-up — conversion happens in your browser.",
+    icon: Presentation,
+    status: "coming-soon",
+    related: ["pdf-to-word", "pdf-to-excel"],
+  },
+
+  // ── Word / DOCX ────────────────────────────────────────────────────────
+  {
+    id: "docx-to-pdf",
+    category: "docx",
+    slug: "to-pdf",
+    name: "Word to PDF",
+    tagline: "Convert .docx documents to PDF.",
+    title: "Word to PDF — Convert DOCX to PDF Online Free",
+    description:
+      "Convert Word documents (.docx) to PDF for free, directly in your browser. Your files are never uploaded to a server.",
+    icon: FileText,
+    status: "coming-soon",
+    related: ["pdf-to-word", "pdf-merge"],
+  },
+  {
+    id: "docx-word-counter",
+    category: "docx",
+    slug: "word-counter",
+    name: "Word Counter",
+    tagline: "Words, characters and readability score.",
+    title: "Word Counter — Count Words & Characters with Readability Score",
+    description:
+      "Count words, characters, sentences and reading time, with a readability score. Paste text or open a .docx — free and private.",
+    icon: Hash,
+    status: "coming-soon",
+    related: ["pdf-word-counter", "docx-find-replace"],
+  },
+  {
+    id: "docx-find-replace",
+    category: "docx",
+    slug: "find-replace",
+    name: "Find & Replace",
+    tagline: "Find and replace text across a Word document.",
+    title: "Find and Replace in Word Documents Online",
+    description:
+      "Find and replace text across a .docx document and download the result. Free, fast and processed entirely in your browser.",
+    icon: Replace,
+    status: "coming-soon",
+    related: ["docx-word-counter", "docx-to-pdf"],
+  },
+
+  // ── Image ──────────────────────────────────────────────────────────────
+  {
+    id: "image-convert",
+    category: "image",
+    slug: "convert",
+    name: "Image Converter",
+    tagline: "Convert between PNG, JPG, WebP and HEIC.",
+    title: "Image Converter — PNG, JPG, WebP & HEIC Online Free",
+    description:
+      "Convert images between PNG, JPG, WebP and HEIC for free. Batch convert in your browser without uploading your photos.",
+    icon: RefreshCw,
+    status: "coming-soon",
+    related: ["image-compress", "image-resize", "image-to-pdf"],
+  },
+  {
+    id: "image-compress",
+    category: "image",
+    slug: "compress",
+    name: "Compress Image",
+    tagline: "Shrink image file size without visible quality loss.",
+    title: "Compress Images Online Free — JPG, PNG & WebP",
+    description:
+      "Reduce image file size for free while keeping quality high. Batch compress JPG, PNG and WebP privately in your browser.",
+    icon: Minimize2,
+    status: "coming-soon",
+    related: ["image-resize", "image-convert"],
+  },
+  {
+    id: "image-resize",
+    category: "image",
+    slug: "resize",
+    name: "Resize Image",
+    tagline: "Change image dimensions by pixels or percentage.",
+    title: "Resize Images Online Free — By Pixels or Percentage",
+    description:
+      "Resize images to exact pixel dimensions or by percentage for free. Fast, private batch resizing right in your browser.",
+    icon: Scaling,
+    status: "coming-soon",
+    related: ["image-compress", "image-convert"],
+  },
+  {
+    id: "image-remove-background",
+    category: "image",
+    slug: "remove-background",
+    name: "Remove Background",
+    tagline: "Automatically remove image backgrounds.",
+    title: "Remove Image Background Online Free — No Upload",
+    description:
+      "Remove the background from photos automatically, for free. AI runs on your device, so your images are never uploaded.",
+    icon: Eraser,
+    status: "coming-soon",
+    related: ["image-convert", "image-resize"],
+  },
+  {
+    id: "image-to-pdf",
+    category: "image",
+    slug: "to-pdf",
+    name: "Image to PDF",
+    tagline: "Combine JPG, PNG and more into a single PDF.",
+    title: "Image to PDF — Convert JPG & PNG to PDF Free",
+    description:
+      "Convert and combine JPG, PNG and other images into one PDF for free. Reorder pages and convert privately in your browser.",
+    icon: FileImage,
+    status: "coming-soon",
+    related: ["pdf-merge", "image-convert"],
+  },
+];
+
+// ── Helpers ──────────────────────────────────────────────────────────────
+
+export function getTool(id: string): Tool {
+  const tool = tools.find((t) => t.id === id);
+  if (!tool) throw new Error(`Unknown tool id: "${id}"`);
+  return tool;
+}
+
+export function getCategory(id: ToolCategoryId): ToolCategory {
+  const category = categories.find((c) => c.id === id);
+  if (!category) throw new Error(`Unknown category id: "${id}"`);
+  return category;
+}
+
+export function toolHref(tool: Tool): string {
+  return `/${tool.category}/${tool.slug}`;
+}
+
+export function categoryHref(category: ToolCategory): string {
+  return `/${category.id}`;
+}
+
+export function getToolsByCategory(id: ToolCategoryId): Tool[] {
+  return tools.filter((t) => t.category === id);
+}
+
+export function getLiveTools(): Tool[] {
+  return tools.filter((t) => t.status === "live");
+}
+
+/** Related tools that are live; falls back to other live tools in the same category. */
+export function getRelatedTools(tool: Tool, limit = 3): Tool[] {
+  const explicit = (tool.related ?? []).map(getTool);
+  const sameCategory = getToolsByCategory(tool.category).filter((t) => t.id !== tool.id);
+  const unique = [...new Set([...explicit, ...sameCategory])];
+  return unique.filter((t) => t.status === "live").slice(0, limit);
+}
