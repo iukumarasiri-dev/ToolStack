@@ -103,22 +103,13 @@ toolstack/
 │   ├── sitemap.ts            # generated from the registry (live tools only)
 │   └── robots.ts
 ├── components/
-│   ├── ui/                   # Button, Container
-│   ├── ToolPageLayout.tsx    # shared tool page: header, tool, ad, how-to, FAQ, related tools
-│   ├── CategoryPage.tsx
-│   ├── FileUploader.tsx      # drag & drop / browse
-│   ├── ProgressBar.tsx
-│   ├── DownloadButton.tsx
-│   ├── ToolCard.tsx
-│   ├── AdSlot.tsx            # fixed-size ad container (placeholder in dev)
-│   ├── Breadcrumbs.tsx       # + BreadcrumbList structured data
-│   ├── Faq.tsx
-│   ├── JsonLd.tsx
-│   ├── PrivacyBadge.tsx
-│   ├── ProsePage.tsx         # layout for about/legal pages
-│   ├── Logo.tsx
-│   ├── Navbar.tsx
-│   └── Footer.tsx
+│   ├── ui/                   # generic primitives: Button, Container
+│   ├── layout/               # site frame: Navbar, Footer, Logo
+│   ├── templates/            # full-page layouts: ToolPageLayout, CategoryPage, ProsePage
+│   ├── tool/                 # tool work-area pieces: FileUploader, ProgressBar, DownloadButton
+│   ├── shared/               # reusable sections: ToolCard, Breadcrumbs, Faq, PrivacyBadge
+│   ├── seo/                  # JsonLd
+│   └── ads/                  # AdSlot (+ ConsentBanner in Phase 4)
 ├── config/
 │   ├── site.ts               # site name, URL, contact email, AdSense ID
 │   └── tools.ts              # tool registry — single source of truth
@@ -136,7 +127,26 @@ toolstack/
 └── package.json
 ```
 
-Added in later phases: `lib/pdf/`, `lib/docx/`, `lib/image/` (processing logic), `workers/` (Web Workers), `components/ConsentBanner.tsx` and `public/ads.txt` (Phase 4).
+Added in later phases: `lib/pdf/`, `lib/docx/`, `lib/image/` (processing logic), `workers/` (Web Workers), `components/ads/ConsentBanner.tsx` and `public/ads.txt` (Phase 4).
+
+### Where components go
+
+| Folder                  | Put a component here when…                                              | Examples                                  |
+| ----------------------- | ----------------------------------------------------------------------- | ----------------------------------------- |
+| `components/ui/`        | It's a generic primitive with no ToolStack-specific knowledge           | Button, Container, later Select, Slider   |
+| `components/layout/`    | It's part of the frame shown on every page                              | Navbar, Footer, Logo                      |
+| `components/templates/` | A `page.tsx` renders it as the whole page body                          | ToolPageLayout, CategoryPage, ProsePage   |
+| `components/tool/`      | It's used inside the working area of **more than one** tool             | FileUploader, ProgressBar, later FileList |
+| `components/shared/`    | It's a content section reused across different pages                    | ToolCard, Faq, Breadcrumbs                |
+| `components/seo/`       | It only outputs metadata / structured data                              | JsonLd                                    |
+| `components/ads/`       | It relates to advertising or consent                                    | AdSlot, ConsentBanner                     |
+| `app/<cat>/<slug>/`     | It's used by **one tool only** — keep it next to that tool's `page.tsx` | `app/pdf/merge/MergePdfTool.tsx`          |
+
+Rules of thumb:
+
+- Always import with the full alias (`@/components/tool/FileUploader`), never relative paths.
+- Start tool-specific components next to the tool; move them to `components/tool/` only when a second tool needs them.
+- No `index.ts` barrel files — they make it easy to accidentally bundle client components into pages that don't need them.
 
 ### Tool Registry
 
@@ -150,7 +160,7 @@ Tools marked `coming-soon` appear greyed out on the landing page but have no pag
 
 ```tsx
 // app/pdf/merge/page.tsx
-import { ToolPageLayout } from "@/components/ToolPageLayout";
+import { ToolPageLayout } from "@/components/templates/ToolPageLayout";
 import { toolMetadata } from "@/lib/seo";
 import { MergePdfTool } from "./MergePdfTool";
 

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Container } from "./ui/Container";
+import { Container } from "@/components/ui/Container";
 
 /** Layout for text-heavy pages (about, legal). */
 export function ProsePage({

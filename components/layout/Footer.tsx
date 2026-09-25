@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { categories, categoryHref, getToolsByCategory, toolHref } from "@/config/tools";
-import { Logo } from "./Logo";
-import { Container } from "./ui/Container";
+import { Logo } from "@/components/layout/Logo";
+import { Container } from "@/components/ui/Container";
 
 const companyLinks = [
   { href: "/about", label: "About" },

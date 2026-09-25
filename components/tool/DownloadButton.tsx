@@ -2,7 +2,7 @@
 
 import { Download } from "lucide-react";
 import { downloadBlob, formatBytes } from "@/lib/utils";
-import { Button } from "./ui/Button";
+import { Button } from "@/components/ui/Button";
 
 interface DownloadButtonProps {
   blob: Blob | null;

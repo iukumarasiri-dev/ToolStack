@@ -2,13 +2,13 @@ import type { ReactNode } from "react";
 import { categoryHref, getCategory, getRelatedTools, getTool, toolHref } from "@/config/tools";
 import { toolJsonLd } from "@/lib/seo";
 import { cn } from "@/lib/utils";
-import { AdSlot } from "./AdSlot";
-import { Breadcrumbs } from "./Breadcrumbs";
-import { Faq } from "./Faq";
-import { JsonLd } from "./JsonLd";
-import { PrivacyBadge } from "./PrivacyBadge";
-import { ToolCard } from "./ToolCard";
-import { Container } from "./ui/Container";
+import { AdSlot } from "@/components/ads/AdSlot";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { Faq } from "@/components/shared/Faq";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { PrivacyBadge } from "@/components/shared/PrivacyBadge";
+import { ToolCard } from "@/components/shared/ToolCard";
+import { Container } from "@/components/ui/Container";
 
 interface ToolPageLayoutProps {
   toolId: string;

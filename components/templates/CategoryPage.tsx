@@ -1,10 +1,10 @@
 import { categoryHref, getCategory, getToolsByCategory } from "@/config/tools";
 import { cn } from "@/lib/utils";
 import type { ToolCategoryId } from "@/types";
-import { Breadcrumbs } from "./Breadcrumbs";
-import { PrivacyBadge } from "./PrivacyBadge";
-import { ToolCard } from "./ToolCard";
-import { Container } from "./ui/Container";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { PrivacyBadge } from "@/components/shared/PrivacyBadge";
+import { ToolCard } from "@/components/shared/ToolCard";
+import { Container } from "@/components/ui/Container";
 
 export function CategoryPage({ categoryId }: { categoryId: ToolCategoryId }) {
   const category = getCategory(categoryId);

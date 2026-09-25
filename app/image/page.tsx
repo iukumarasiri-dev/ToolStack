@@ -1,4 +1,4 @@
-import { CategoryPage } from "@/components/CategoryPage";
+import { CategoryPage } from "@/components/templates/CategoryPage";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({

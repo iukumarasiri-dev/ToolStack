@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { categories, categoryHref } from "@/config/tools";
-import { Logo } from "./Logo";
-import { Container } from "./ui/Container";
+import { Logo } from "@/components/layout/Logo";
+import { Container } from "@/components/ui/Container";
 
 export function Navbar() {
   return (

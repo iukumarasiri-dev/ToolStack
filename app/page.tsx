@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BadgeCheck, Lock, MousePointerClick, Upload, UserX, Zap } from "lucide-react";
-import { Faq } from "@/components/Faq";
-import { ToolCard } from "@/components/ToolCard";
+import { Faq } from "@/components/shared/Faq";
+import { ToolCard } from "@/components/shared/ToolCard";
 import { buttonClasses } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/config/site";

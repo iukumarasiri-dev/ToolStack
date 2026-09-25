@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ProsePage } from "@/components/ProsePage";
+import { ProsePage } from "@/components/templates/ProsePage";
 import { siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/seo";
 

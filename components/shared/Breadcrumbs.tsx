@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { JsonLd } from "./JsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export interface Crumb {
   label: string;
