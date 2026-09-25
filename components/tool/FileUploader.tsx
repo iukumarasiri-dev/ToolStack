@@ -69,7 +69,11 @@ export function FileUploader({
           <Upload className="size-6" aria-hidden />
         </span>
         <span className="text-lg font-semibold">
-          {dragging ? "Drop to add" : `Choose ${multiple ? "files" : "a file"} or drag them here`}
+          {dragging
+            ? "Drop to add"
+            : multiple
+              ? "Choose files or drag them here"
+              : "Choose a file or drag it here"}
         </span>
         {hint && <span className="text-muted text-sm">{hint}</span>}
         <input
