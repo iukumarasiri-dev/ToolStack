@@ -274,10 +274,47 @@ export const tools: Tool[] = [
     tagline: "Change image dimensions by pixels or percentage.",
     title: "Resize Images Online Free — By Pixels or Percentage",
     description:
-      "Resize images to exact pixel dimensions or by percentage for free. Fast, private batch resizing right in your browser.",
+      "Resize images to exact pixel dimensions or by percentage for free. Keep proportions, choose JPG, PNG or WebP — privately in your browser.",
     icon: Scaling,
-    status: "coming-soon",
-    related: ["image-compress", "image-convert"],
+    status: "live",
+    howTo: [
+      "Choose an image or drag it into the box — JPG, PNG, WebP, GIF, BMP and AVIF are supported.",
+      "Pick “By pixels” to enter an exact width and height, or “By percentage” to scale it.",
+      "Choose the output format and quality, then click “Resize image”.",
+      "Download your resized image.",
+    ],
+    faq: [
+      {
+        question: "Are my images uploaded to a server?",
+        answer:
+          "No. Resizing happens entirely in your browser using your device's graphics capabilities. Your images never leave your device and aren't stored anywhere.",
+      },
+      {
+        question: "Will resizing reduce the quality of my image?",
+        answer:
+          "Making an image smaller keeps it sharp. Making it larger can look soft, because no new detail can be created. For JPG and WebP, a quality setting of 80–90% keeps images looking like the original.",
+      },
+      {
+        question: "How do I resize without stretching the image?",
+        answer:
+          "Keep the link icon between width and height switched on. The other dimension then updates automatically so the proportions stay the same. Resizing by percentage always keeps the proportions.",
+      },
+      {
+        question: "What's the largest image I can resize?",
+        answer: `Output images can be up to 16,384 pixels on each side. Very large images depend on your device's memory — most computers handle photos of 50 megapixels or more.`,
+      },
+      {
+        question: "Why is my photo rotated correctly here but not in other apps?",
+        answer:
+          "Phone cameras often store rotation as a hidden tag instead of rotating the pixels. We apply that tag when resizing, so the downloaded image is the right way up in every app.",
+      },
+      {
+        question: "Can I change the format while resizing?",
+        answer:
+          "Yes. Choose JPG, PNG or WebP as the output format. Transparent areas are kept in PNG and WebP, and turned white in JPG, which doesn't support transparency.",
+      },
+    ],
+    related: ["image-compress", "image-convert", "image-to-pdf"],
   },
   {
     id: "image-remove-background",
