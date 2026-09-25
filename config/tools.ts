@@ -299,10 +299,48 @@ export const tools: Tool[] = [
     tagline: "Shrink image file size without visible quality loss.",
     title: "Compress Images Online Free — JPG, PNG & WebP",
     description:
-      "Reduce image file size for free while keeping quality high. Batch compress JPG, PNG and WebP privately in your browser.",
+      "Reduce image file size for free — by quality or to a target size like 500 KB. Batch compress JPG, PNG, WebP and HEIC privately in your browser.",
     icon: Minimize2,
-    status: "coming-soon",
-    related: ["image-resize", "image-convert"],
+    status: "live",
+    howTo: [
+      "Add your images — drag them into the box or choose them. You can add up to 100 at once.",
+      "Choose “Quality” to pick a quality level, or “Target file size” to fit a limit such as 500 KB.",
+      "Optionally set a maximum width or height and an output format for even smaller files.",
+      "Click “Compress”, then download each image or all of them as a ZIP.",
+    ],
+    faq: [
+      {
+        question: "Will compressing reduce the quality of my images?",
+        answer:
+          "A little, but usually not visibly. At 70–80% quality most photos look the same on screen while being far smaller. Use a higher quality for images you plan to print or edit further.",
+      },
+      {
+        question: "How do I get an image under a specific size, like 200 KB?",
+        answer:
+          "Choose “Target file size”, enter 200 KB and click Compress. The tool lowers the quality and, if needed, the dimensions until the image fits. If it can't reach the target, the image is marked “above target” — setting a smaller maximum width or height usually solves it.",
+      },
+      {
+        question: "Are my images uploaded to a server?",
+        answer:
+          "No. Compression runs in your browser, in a background worker on your own device. Your images are never uploaded or stored.",
+      },
+      {
+        question: "Why did my PNG barely get smaller?",
+        answer:
+          "PNG is a lossless format, so there's little to remove without changing the format. Set the output format to JPG or WebP for photos — they're often 70–90% smaller. Keep PNG for logos and images with transparency.",
+      },
+      {
+        question: "Does compression remove location and camera data?",
+        answer:
+          "Yes. Compressed images are saved without EXIF metadata such as GPS location, camera model and date taken. If an image is already optimized and we keep the original, its metadata is left unchanged.",
+      },
+      {
+        question: "Can I compress iPhone HEIC photos?",
+        answer:
+          "Yes. HEIC photos are decoded in your browser and saved as compressed JPG files (or WebP/PNG if you choose), which work everywhere.",
+      },
+    ],
+    related: ["image-resize", "image-convert", "image-to-pdf"],
   },
   {
     id: "image-resize",
