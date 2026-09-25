@@ -13,6 +13,7 @@ Longer-term, the project is designed to expand beyond core document tools into A
 ## Features
 
 ### PDF Tools
+
 - Merge PDFs
 - Split PDFs
 - Rotate / reorder / delete pages (PDF editor)
@@ -21,17 +22,20 @@ Longer-term, the project is designed to expand beyond core document tools into A
 - PDF → Word / Excel / PowerPoint — text extraction only; see [Implementation Notes](#implementation-notes)
 
 ### Word/DOCX Tools
+
 - DOCX to PDF / PDF to DOCX
 - Word counter / character counter with readability score
 - Find & replace across a document (doc editor)
 
 ### Image Tools
+
 - Image format converter (PNG / JPG / WebP / HEIC)
 - Image compressor / resizer
 - Image to PDF batch converter
 - Background remover — pending license decision; see [Implementation Notes](#implementation-notes)
 
 ### Planned (Future)
+
 - AI-powered tools: document summarizer, ask-your-document Q&A, auto-translate (requires a backend + API costs — funded by ad revenue)
 - Additional utility categories beyond documents
 
@@ -60,14 +64,15 @@ Longer-term, the project is designed to expand beyond core document tools into A
 
 Known constraints of doing everything in the browser:
 
-| Tool | Constraint | Approach |
-|---|---|---|
-| PDF → Word / Excel / PPT | No reliable client-side library preserves layout | Ship as "text extraction" (pdf.js); revisit with a backend later |
-| Compress PDF | `pdf-lib` cannot re-encode embedded images | Rasterize pages via pdf.js + canvas at lower quality, or evaluate a WASM build of qpdf (check licenses — Ghostscript is AGPL) |
-| HEIC conversion | Not natively decodable in most browsers | `heic2any` (WASM) |
-| Background remover | `@imgly/background-removal` is **AGPL-3.0** (requires open-sourcing the app or buying a commercial license); model download is tens of MB | Decide on license before building; lazy-load the model only on user action |
+| Tool                     | Constraint                                                                                                                                | Approach                                                                                                                      |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| PDF → Word / Excel / PPT | No reliable client-side library preserves layout                                                                                          | Ship as "text extraction" (pdf.js); revisit with a backend later                                                              |
+| Compress PDF             | `pdf-lib` cannot re-encode embedded images                                                                                                | Rasterize pages via pdf.js + canvas at lower quality, or evaluate a WASM build of qpdf (check licenses — Ghostscript is AGPL) |
+| HEIC conversion          | Not natively decodable in most browsers                                                                                                   | `heic2any` (WASM)                                                                                                             |
+| Background remover       | `@imgly/background-removal` is **AGPL-3.0** (requires open-sourcing the app or buying a commercial license); model download is tens of MB | Decide on license before building; lazy-load the model only on user action                                                    |
 
 **Performance rules:**
+
 - Load heavy libraries (pdf.js, WASM, ONNX models) with dynamic `import()` only on the page that needs them.
 - Run processing in Web Workers so large files don't freeze the UI.
 - Reserve fixed-size containers for ad slots to avoid layout shift (CLS).
@@ -77,69 +82,88 @@ Known constraints of doing everything in the browser:
 ```
 toolstack/
 ├── app/
-│   ├── layout.tsx
-│   ├── page.tsx
-│   ├── globals.css
+│   ├── layout.tsx            # root layout, default metadata, navbar/footer
+│   ├── page.tsx              # landing page
+│   ├── globals.css           # Tailwind v4 theme tokens (light/dark)
+│   ├── icon.svg              # favicon
+│   ├── not-found.tsx
 │   ├── pdf/
-│   │   ├── merge/page.tsx
-│   │   ├── split/page.tsx
-│   │   ├── compress/page.tsx
-│   │   ├── organize/page.tsx
-│   │   ├── word-counter/page.tsx
-│   │   ├── to-word/page.tsx
-│   │   ├── to-excel/page.tsx
-│   │   └── to-ppt/page.tsx
+│   │   ├── page.tsx          # category page
+│   │   └── <slug>/page.tsx   # one per live tool, e.g. merge/page.tsx
 │   ├── docx/
-│   │   ├── to-pdf/page.tsx
-│   │   ├── word-counter/page.tsx
-│   │   └── find-replace/page.tsx
+│   │   ├── page.tsx
+│   │   └── <slug>/page.tsx
 │   ├── image/
-│   │   ├── convert/page.tsx
-│   │   ├── compress/page.tsx
-│   │   ├── resize/page.tsx
-│   │   ├── remove-background/page.tsx
-│   │   └── to-pdf/page.tsx
+│   │   ├── page.tsx
+│   │   └── <slug>/page.tsx
 │   ├── about/page.tsx
 │   ├── contact/page.tsx
 │   ├── privacy-policy/page.tsx
 │   ├── terms/page.tsx
-│   └── sitemap.ts
+│   ├── sitemap.ts            # generated from the registry (live tools only)
+│   └── robots.ts
 ├── components/
-│   ├── ui/
-│   ├── FileUploader.tsx
+│   ├── ui/                   # Button, Container
+│   ├── ToolPageLayout.tsx    # shared tool page: header, tool, ad, how-to, FAQ, related tools
+│   ├── CategoryPage.tsx
+│   ├── FileUploader.tsx      # drag & drop / browse
 │   ├── ProgressBar.tsx
 │   ├── DownloadButton.tsx
 │   ├── ToolCard.tsx
-│   ├── ToolPageLayout.tsx    # shared layout: tool + how-to + FAQ + related tools
-│   ├── AdSlot.tsx            # fixed-size ad container
-│   ├── ConsentBanner.tsx     # Google-certified CMP integration
+│   ├── AdSlot.tsx            # fixed-size ad container (placeholder in dev)
+│   ├── Breadcrumbs.tsx       # + BreadcrumbList structured data
+│   ├── Faq.tsx
+│   ├── JsonLd.tsx
+│   ├── PrivacyBadge.tsx
+│   ├── ProsePage.tsx         # layout for about/legal pages
+│   ├── Logo.tsx
 │   ├── Navbar.tsx
 │   └── Footer.tsx
 ├── config/
+│   ├── site.ts               # site name, URL, contact email, AdSense ID
 │   └── tools.ts              # tool registry — single source of truth
 ├── lib/
-│   ├── pdf/
-│   ├── docx/
-│   ├── image/
-│   └── utils.ts
-├── workers/                  # Web Workers for heavy processing
+│   ├── seo.ts                # metadata + JSON-LD helpers
+│   └── utils.ts              # cn, formatBytes, matchesAccept, downloadBlob, …
 ├── hooks/
-│   ├── useFileUpload.ts
-│   └── useDownload.ts
+│   └── useFileUpload.ts      # file list state + validation
 ├── public/
-│   ├── icons/
-│   ├── og-images/
-│   └── ads.txt
+│   └── og-images/default.png
 ├── types/
 │   └── index.ts
-├── next.config.js
-├── tailwind.config.ts
+├── .env.example
+├── next.config.ts            # output: "export"
 └── package.json
 ```
+
+Added in later phases: `lib/pdf/`, `lib/docx/`, `lib/image/` (processing logic), `workers/` (Web Workers), `components/ConsentBanner.tsx` and `public/ads.txt` (Phase 4).
 
 ### Tool Registry
 
 `config/tools.ts` defines every tool once — slug, route, title, meta description, category, FAQ entries, and related tools. The navbar, landing page cards, sitemap, page metadata, and "related tools" links are all generated from it, so adding a tool means one registry entry plus one page.
+
+Tools marked `coming-soon` appear greyed out on the landing page but have no page or sitemap entry. To ship a tool:
+
+1. Set its `status` to `"live"` and fill in `howTo`, `faq` and `related`.
+2. Build the tool UI as a client component, using `useFileUpload` + `FileUploader`.
+3. Add the page:
+
+```tsx
+// app/pdf/merge/page.tsx
+import { ToolPageLayout } from "@/components/ToolPageLayout";
+import { toolMetadata } from "@/lib/seo";
+import { MergePdfTool } from "./MergePdfTool";
+
+export const metadata = toolMetadata("pdf-merge");
+
+export default function Page() {
+  return (
+    <ToolPageLayout toolId="pdf-merge">
+      <MergePdfTool />
+    </ToolPageLayout>
+  );
+}
+```
 
 ## Why Client-Side Processing?
 
@@ -195,6 +219,9 @@ cd toolstack
 # Install dependencies
 npm install
 
+# Configure environment (site URL, AdSense ID)
+cp .env.example .env.local
+
 # Run the development server
 npm run dev
 
@@ -203,6 +230,10 @@ npm run build
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
+
+Other scripts: `npm run lint`, `npm run typecheck`, `npm run format`.
+
+**Deploying to Cloudflare Pages:** build command `npm run build`, output directory `out`, and set `NEXT_PUBLIC_SITE_URL` to your domain in the project's environment variables.
 
 ## License
 
