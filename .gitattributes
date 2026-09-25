@@ -1,0 +1,12 @@
+# Always use LF line endings in the working tree, regardless of core.autocrlf,
+# so Prettier (which expects LF) agrees with what Git checks out.
+* text=auto eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.docx binary
