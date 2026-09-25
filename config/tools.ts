@@ -245,12 +245,50 @@ export const tools: Tool[] = [
     category: "image",
     slug: "convert",
     name: "Image Converter",
-    tagline: "Convert between PNG, JPG, WebP and HEIC.",
-    title: "Image Converter — PNG, JPG, WebP & HEIC Online Free",
+    tagline: "Convert HEIC, PNG, WebP and more to JPG, PNG or WebP.",
+    title: "Image Converter — HEIC to JPG, PNG to JPG, WebP & More",
     description:
-      "Convert images between PNG, JPG, WebP and HEIC for free. Batch convert in your browser without uploading your photos.",
+      "Convert HEIC, PNG, WebP, GIF and more to JPG, PNG or WebP for free. Batch convert and download as ZIP — photos never leave your device.",
     icon: RefreshCw,
-    status: "coming-soon",
+    status: "live",
+    howTo: [
+      "Add your images — drag them into the box or choose them. You can mix formats, including iPhone HEIC photos.",
+      "Choose the format to convert to: JPG, PNG or WebP. For JPG and WebP, adjust the quality if you like.",
+      "Click “Convert” and wait for each image to show a green tick.",
+      "Download images one by one, or all of them together as a ZIP file.",
+    ],
+    faq: [
+      {
+        question: "How do I convert HEIC to JPG?",
+        answer:
+          "Add your HEIC photos, keep “JPG” selected and click Convert. The HEIC decoder loads automatically the first time and runs in your browser, so your photos are never uploaded.",
+      },
+      {
+        question: "Are my images uploaded anywhere?",
+        answer:
+          "No. All conversion happens on your device. Your images aren't sent to a server, stored or seen by anyone else.",
+      },
+      {
+        question: "How many images can I convert at once?",
+        answer:
+          "Up to 100 images per batch. They're converted one after another to keep memory use low, and you can download them all together as a ZIP file.",
+      },
+      {
+        question: "Can I convert images to HEIC?",
+        answer:
+          "Not currently — browsers can read HEIC with our decoder but can't create HEIC files. Convert to JPG or WebP instead; both are much more widely supported.",
+      },
+      {
+        question: "What happens to transparent backgrounds?",
+        answer:
+          "PNG and WebP keep transparency. JPG doesn't support it, so transparent areas become white.",
+      },
+      {
+        question: "Does converting an animated GIF keep the animation?",
+        answer:
+          "No — only the first frame is converted. The output formats here are for still images.",
+      },
+    ],
     related: ["image-compress", "image-resize", "image-to-pdf"],
   },
   {
