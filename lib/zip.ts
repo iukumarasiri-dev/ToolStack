@@ -25,12 +25,10 @@ export function uniqueNames(names: string[]): string[] {
 export async function createZip(entries: ZipEntry[]): Promise<Blob> {
   const { zipSync } = await import("fflate");
   const names = uniqueNames(entries.map((e) => e.name));
+  const buffers = await Promise.all(entries.map((e) => e.data.arrayBuffer()));
+  // Insert in list order so the archive matches the order shown to the user.
   const files: Record<string, Uint8Array> = {};
-  await Promise.all(
-    entries.map(async (entry, i) => {
-      files[names[i]] = new Uint8Array(await entry.data.arrayBuffer());
-    }),
-  );
+  names.forEach((name, i) => (files[name] = new Uint8Array(buffers[i])));
   const zipped = zipSync(files, { level: 0 });
   return new Blob([zipped], { type: "application/zip" });
 }
