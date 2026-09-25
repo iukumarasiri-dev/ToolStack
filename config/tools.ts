@@ -185,8 +185,45 @@ export const tools: Tool[] = [
     description:
       "Count words, characters, sentences and reading time, with a readability score. Paste text or open a .docx — free and private.",
     icon: Hash,
-    status: "coming-soon",
-    related: ["pdf-word-counter", "docx-find-replace"],
+    status: "live",
+    howTo: [
+      "Type or paste your text into the box — or open a .docx or .txt file with the button above it.",
+      "Word, character, sentence and paragraph counts update instantly as you type.",
+      "Check the side panel for reading time, readability score and your most-used keywords.",
+    ],
+    faq: [
+      {
+        question: "Is my text sent anywhere?",
+        answer:
+          "No. Counting happens entirely in your browser. Your text and documents are never uploaded, stored or seen by anyone else, and they're cleared when you close the page.",
+      },
+      {
+        question: "Can I count words in a Word document?",
+        answer:
+          'Yes. Click "Open .docx or .txt" or drag the file onto the text box. The text is extracted in your browser and counted instantly. Older .doc files aren\'t supported — save them as .docx first.',
+      },
+      {
+        question: "Why is my count slightly different from Microsoft Word or Google Docs?",
+        answer:
+          "Each program has its own rules for things like hyphens, numbers, URLs and footnotes. We count hyphenated words and contractions as one word, like Microsoft Word. Text inside headers, footers and text boxes of a .docx may not be included.",
+      },
+      {
+        question: "Are spaces included in the character count?",
+        answer:
+          'Both are shown: "Characters" includes spaces and line breaks, and "Characters (no spaces)" in the details panel excludes them. Emoji and accented letters count as one character each.',
+      },
+      {
+        question: "What is a good readability score?",
+        answer:
+          "For general audiences, aim for a Flesch Reading Ease score of 60 or higher. Scores of 30–59 are typical for academic and technical writing. The score is designed for English text.",
+      },
+      {
+        question: "Is there a word limit?",
+        answer:
+          "No. The counter handles very long texts, including full books — the only limit is your device's memory.",
+      },
+    ],
+    related: ["pdf-word-counter", "docx-find-replace", "docx-to-pdf"],
   },
   {
     id: "docx-find-replace",
