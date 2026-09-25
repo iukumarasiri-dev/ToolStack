@@ -50,7 +50,8 @@ Longer-term, the project is designed to expand beyond core document tools into A
   - `docx` — DOCX generation
   - `jsPDF` — HTML/text → PDF
   - `browser-image-compression` — image compression
-  - `heic2any` — HEIC decoding (browsers can't read HEIC natively)
+  - `heic2any` — HEIC decoding (browsers can't read HEIC natively); bundles `libheif` (LGPL-3.0), loaded as a separate on-demand chunk
+  - `fflate` — ZIP downloads for batch results
   - Canvas API — image conversion/resizing
   - Web Workers — heavy processing off the main thread
 - **Hosting:** Cloudflare Pages (free tier, commercial use allowed)
